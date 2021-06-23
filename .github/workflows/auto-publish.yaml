@@ -1,4 +1,4 @@
-name: msisdn publish CI
+name: msisdn CI
 
 on:
   pull_request:
