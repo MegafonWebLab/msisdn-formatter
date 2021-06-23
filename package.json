@@ -5,10 +5,12 @@
   "repository": "git@github.com:MegafonWebLab/msisdn.git",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "release": "yarn version --message='Release: v%s'"
+    "release": "yarn version --message='Release: v%s'",
+    "pre-commit": "yarn typecheck && yarn test"
   },
   "files": [
     "dist"
@@ -27,6 +29,7 @@
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/jest": "^26.0.23",
     "babel-jest": "^27.0.5",
+    "husky": "^6.0.0",
     "jest": "^27.0.5",
     "rollup": "^2.52.2",
     "rollup-plugin-dts": "^3.0.2",
