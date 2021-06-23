@@ -1,0 +1,69 @@
+name: msisdn publish CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+jobs:
+  main:
+    env:
+      BASE_REPO_OWNER: MegafonWebLab
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Tests
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Define branch purpose
+        id: branch
+        run: |
+          if
+          [ ${{ startsWith(github.ref, 'refs/tags/v') }} = true ] &&
+          [ ${{ github.repository_owner }} = ${{ env.BASE_REPO_OWNER }} ];
+          then
+            echo ::set-output name=should_release::true
+          else
+            echo ::set-output name=should_release::false
+          fi
+
+      - name: Publish to NPM
+        if: steps.branch.outputs.should_release == 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get current date
+        if: steps.branch.outputs.should_release == 'true'
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Create Github release
+        if: steps.branch.outputs.should_release == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ format('Release {0} ({1})', github.ref, steps.date.outputs.date) }}

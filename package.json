@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
-    "test": "jest",
     "typecheck": "tsc --noEmit",
+    "test": "jest",
     "release": "yarn version --message='Release: v%s'"
   },
   "files": [
