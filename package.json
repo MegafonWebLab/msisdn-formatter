@@ -1,0 +1,36 @@
+{
+  "name": "@megafon/msisdn",
+  "version": "0.0.1",
+  "description": "MSISDN formatter utils",
+  "repository": "git@github.com:MegafonWebLab/msisdn.git",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "release": "yarn version --message='Release: v%s'"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-typescript": "^7.14.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/jest": "^26.0.23",
+    "babel-jest": "^27.0.5",
+    "jest": "^27.0.5",
+    "rollup": "^2.52.2",
+    "rollup-plugin-dts": "^3.0.2",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.4"
+  }
+}
