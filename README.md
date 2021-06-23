@@ -1,7 +1,7 @@
 # @megafon/msisdn
 
 [![npm (scoped with tag)](https://img.shields.io/npm/v/@megafon/msisdn/latest?label=%40megafon%2Fmsisdn)](https://www.npmjs.com/package/@megafon/msisdn/v/latest) 
-[![Github Actions](https://github.com/MegafonWebLab/msisdn/workflows/msisdn%20CI/badge.svg)](https://github.com/MegafonWebLab/msisdn/actions)
+[![msisdn CI](https://github.com/MegafonWebLab/msisdn/actions/workflows/auto-publish.yaml/badge.svg)](https://github.com/MegafonWebLab/msisdn/actions/workflows/auto-publish.yaml)
 
 Russian msisdn normalizer and formatter.
 
