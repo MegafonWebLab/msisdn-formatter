@@ -1,20 +1,20 @@
-# @megafon/msisdn
+# @megafon/msisdn-formatter
 
-[![npm (scoped with tag)](https://img.shields.io/npm/v/@megafon/msisdn/latest?label=%40megafon%2Fmsisdn)](https://www.npmjs.com/package/@megafon/msisdn/v/latest) 
-[![msisdn CI](https://github.com/MegafonWebLab/msisdn/actions/workflows/auto-publish.yaml/badge.svg)](https://github.com/MegafonWebLab/msisdn/actions/workflows/auto-publish.yaml)
+[![npm (scoped with tag)](https://img.shields.io/npm/v/@megafon/msisdn-formatter/latest?label=%40megafon%2Fmsisdn-formatter)](https://www.npmjs.com/package/@megafon/msisdn-formatter/v/latest) 
+[![msisdn CI](https://github.com/MegafonWebLab/msisdn-formatter/actions/workflows/auto-publish.yaml/badge.svg)](https://github.com/MegafonWebLab/msisdn-formatter/actions/workflows/auto-publish.yaml)
 
 Russian msisdn normalizer and formatter.
 
 ## Installation
 
 ```
-$ yarn add @megafon/msisdn
+$ yarn add @megafon/msisdn-formatter
 ```
 
 ## Usage
 
 ```typescript
-import { clean, pretty, PrettyFormats } from '@megafon/msisdn';
+import { clean, pretty, PrettyFormats } from '@megafon/msisdn-formatter';
 
 const userNumber = '+7 926 000-00-00';
 
