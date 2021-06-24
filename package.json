@@ -1,6 +1,6 @@
 {
   "name": "@megafon/msisdn-formatter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "MSISDN formatter utils",
   "repository": "git@github.com:MegafonWebLab/msisdn-formatter.git",
   "license": "MIT",
