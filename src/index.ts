@@ -60,7 +60,7 @@ export const clean = (msisdn: string, removeLeadingSeven = false): string | null
  * @param {PrettyFormats} [format=PrettyFormats.ZETA] format
  * @returns {string} msisdn string in pretty format
  */
-export const pretty = (msisdn: string | number, format = PrettyFormats.ZETA): string => {
+export const pretty = (msisdn: string | number, format: PrettyFormats | string = PrettyFormats.ZETA): string => {
     let msisdnStr = msisdn;
     if (typeof msisdnStr === 'number') {
         msisdnStr = String(msisdn);
@@ -71,7 +71,8 @@ export const pretty = (msisdn: string | number, format = PrettyFormats.ZETA): st
         return msisdnStr;
     }
 
-    const safeFormat = format in prettyFormatsRegExp ? format : PrettyFormats.ZETA;
+    const unsafeFormat: PrettyFormats = format as PrettyFormats;
+    const safeFormat: PrettyFormats = prettyFormatsRegExp[unsafeFormat] ? unsafeFormat : PrettyFormats.ZETA;
 
     return cleaned.replace(patterns.cleanMsisdnParts, prettyFormatsRegExp[safeFormat]);
 };

@@ -15,7 +15,7 @@ describe('msisdn formatter', () => {
             9161234567
         ];
 
-        type TestCase = [string | number, PrettyFormats | undefined, string];
+        type TestCase = [string | number, PrettyFormats | string | undefined, string];
         const testTable: TestCase[] = [
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.ALPHA, '9161234567']),
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.BETA, '79161234567']),
@@ -24,6 +24,8 @@ describe('msisdn formatter', () => {
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.EPSILON, '+7 (916) 123-4567']),
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.ZETA, '+7 (916) 123-45-67']),
             ...testMsisdns.map((t): TestCase => [t, undefined, '+7 (916) 123-45-67']),
+            ...testMsisdns.map((t): TestCase => [t, 'alpha', '9161234567']),
+            ...testMsisdns.map((t): TestCase => [t, 'unknown-format', '+7 (916) 123-45-67']),
         ];
 
         it.concurrent.each(testTable)('pretty(%s, %p) should return %s',
