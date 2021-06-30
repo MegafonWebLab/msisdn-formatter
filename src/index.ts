@@ -13,7 +13,9 @@ const patterns = {
  * DELTA   -> (916) 123-4567
  * EPSILON -> +7 (916) 123-4567
  * ZETA    -> +7 (916) 123-45-67
- */
+ * ETA     -> +7 916 123-45-67
+*/
+
 export enum PrettyFormats {
     ALPHA = 'alpha',
     BETA = 'beta',
@@ -21,6 +23,7 @@ export enum PrettyFormats {
     DELTA = 'delta',
     EPSILON = 'epsilon',
     ZETA = 'zeta',
+    ETA = 'eta',
 }
 
 const prettyFormatsRegExp = {
@@ -30,6 +33,7 @@ const prettyFormatsRegExp = {
     [PrettyFormats.DELTA]: '($1) $2-$3$4',
     [PrettyFormats.EPSILON]: '+7 ($1) $2-$3$4',
     [PrettyFormats.ZETA]: '+7 ($1) $2-$3-$4',
+    [PrettyFormats.ETA]: '+7 $1 $2-$3-$4',
 };
 
 /**
