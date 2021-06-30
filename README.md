@@ -30,6 +30,7 @@ console.log(pretty(userNumber, PrettyFormats.ZETA)); // Prints: '+7 (926) 000-00
 * delta: (916) 123-4567
 * epsilon: +7 (916) 123-4567
 * zeta: +7 (916) 123-45-67
+* eta: +7 916 123-45-67
 
 ## Contributing
 

@@ -23,6 +23,7 @@ describe('msisdn formatter', () => {
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.DELTA, '(916) 123-4567']),
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.EPSILON, '+7 (916) 123-4567']),
             ...testMsisdns.map((t): TestCase => [t, PrettyFormats.ZETA, '+7 (916) 123-45-67']),
+            ...testMsisdns.map((t): TestCase => [t, PrettyFormats.ETA, '+7 916 123-45-67']),
             ...testMsisdns.map((t): TestCase => [t, undefined, '+7 (916) 123-45-67']),
             ...testMsisdns.map((t): TestCase => [t, 'alpha', '9161234567']),
             ...testMsisdns.map((t): TestCase => [t, 'unknown-format', '+7 (916) 123-45-67']),
