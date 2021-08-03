@@ -16,10 +16,11 @@ $ yarn add @megafon/msisdn-formatter
 ```typescript
 import { clean, pretty, PrettyFormats } from '@megafon/msisdn-formatter';
 
-const userNumber = '+7 926 000-00-00';
+const userNumber = '+79260000000';
 
 console.log(clean(userNumber)); // Prints: '9260000000'
-console.log(pretty(userNumber, PrettyFormats.ZETA)); // Prints: '+7 (926) 000-00-00'
+console.log(pretty(userNumber)); // Prints ZETA format by default: '+7 (926) 000-00-00'
+console.log(pretty(userNumber, PrettyFormats.ETA)); // Prints: '+7 926 000-00-00'
 ```
 
 ### Available formats:
