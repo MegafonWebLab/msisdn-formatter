@@ -1,0 +1,15 @@
+name: msisdn CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    uses: MegafonWebLab/github-workflows/.github/workflows/npm-package.yaml@v1.0.1-npm-package
+    with:
+      enable-lint: false
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
