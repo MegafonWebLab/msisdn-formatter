@@ -1,5 +1,5 @@
 const patterns = {
-    validMsisdn: /^7?[69]\d{9}$/,
+    validMsisdn: /^7?[469]\d{9}$/,
     notDigitsNorPlus: /[^\d+]+/g,
     cleanMsisdnParts: /^(?:\+?7|8)?(\d{3})(\d{3})(\d{2})(\d{2})$/,
 };
