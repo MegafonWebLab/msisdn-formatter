@@ -100,4 +100,38 @@ describe('msisdn formatter', () => {
             }
         );
     });
+
+    describe('pretty customPattern cases', () => {
+        const msisdn = '88161234567';
+        const expected = '+7 816 123-45-67';
+
+        it('pretty 88161234567 with custom pattern should be return +7 816 123-45-67', ()=> {
+            const customPattern = /^7?[4689]\d{9}$/;
+
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(expected);
+        })
+        
+        it('not should be pretty', ()=> {
+            const customPattern = /^7?[469]\d{9}$/;
+
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(msisdn);
+        })
+           
+    });
+
+    describe('clean customPattern cases', () => {
+        const msisdn = '8 816 123 45 67';
+        const expected = '8161234567';
+
+        it('call with custom pattern', ()=> {
+            const customPattern = /^7?[4689]\d{9}$/;
+
+            expect(clean(msisdn, true, customPattern)).toEqual(expected);
+        })
+        
+        it('call without custom pattern', ()=> {
+            expect(clean(msisdn, false)).not.toEqual(expected);
+        })
+           
+    });
 });
