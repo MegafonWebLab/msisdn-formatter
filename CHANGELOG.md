@@ -1,3 +1,13 @@
+# [0.4.0](https://github.com/MegafonWebLab/msisdn-formatter/compare/v0.3.0...v0.4.0) (2023-03-22)
+
+### Features
+
+- add customPattern param for the any phone code as allowed ([90ef228](https://github.com/MegafonWebLab/msisdn-formatter/commit/90ef228d4eeca90ddc0efbec5f4db2e9fe453797))
+
+### Other
+
+- Merge pull request #13 from astranavt/15294-allow-8 ([0f807be](https://github.com/MegafonWebLab/msisdn-formatter/commit/0f807be69420b272acbd0a9cc21249c00f7903da)), closes [#13](https://github.com/MegafonWebLab/msisdn-formatter/issues/13)
+
 # [0.3.0](https://github.com/MegafonWebLab/msisdn-formatter/compare/v0.2.0...v0.3.0) (2022-09-16)
 
 ### Continuous Integration
