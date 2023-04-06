@@ -14,7 +14,7 @@ const patterns = {
  * EPSILON -> +7 (916) 123-4567
  * ZETA    -> +7 (916) 123-45-67
  * ETA     -> +7 916 123-45-67
-*/
+ */
 
 export enum PrettyFormats {
     ALPHA = 'alpha',
@@ -40,11 +40,15 @@ const prettyFormatsRegExp = {
  * Cleans msisdn.
  *
  * @param {string} msisdn msisdn to clean
- * @param {boolean} [removeLeadingSeven=false] Remove leading 7
  * @param {RegExp} customPattern custom pattern for validation msisdn
+ * @param {boolean} [removeLeadingSeven=false] Remove leading 7
  * @returns {?string} cleaned msisdn
  */
-export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?: RegExp): string | null => {
+export const clean = (
+    msisdn: string,
+    customPattern?: RegExp,
+    removeLeadingSeven = false,
+): string | null => {
     if (typeof msisdn !== 'string') {
         return null;
     }
@@ -52,7 +56,9 @@ export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?
     const cleaned = msisdn.replace(patterns.notDigitsNorPlus, '');
     const resultMsisdn = cleaned.replace(
         patterns.cleanMsisdnParts,
-        removeLeadingSeven ? prettyFormatsRegExp[PrettyFormats.ALPHA] : prettyFormatsRegExp[PrettyFormats.BETA],
+        removeLeadingSeven
+            ? prettyFormatsRegExp[PrettyFormats.ALPHA]
+            : prettyFormatsRegExp[PrettyFormats.BETA],
     );
 
     if (customPattern) {
@@ -66,23 +72,29 @@ export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?
  * Makes msisdn pretty.
  *
  * @param {number|string} msisdn msisdn in string or number.
- * @param {PrettyFormats} [format=PrettyFormats.ZETA] format
  * @param {RegExp} customPattern custom pattern for validation msisdn
+ * @param {PrettyFormats} [format=PrettyFormats.ZETA] format
  * @returns {string} msisdn string in pretty format
  */
-export const pretty = (msisdn: string | number, format: PrettyFormats | string = PrettyFormats.ZETA, customPattern?: RegExp): string => {
+export const pretty = (
+    msisdn: string | number,
+    customPattern?: RegExp,
+    format: PrettyFormats | string = PrettyFormats.ZETA,
+): string => {
     let msisdnStr = msisdn;
     if (typeof msisdnStr === 'number') {
         msisdnStr = String(msisdn);
     }
 
-    const cleaned = clean(msisdnStr, false, customPattern);
+    const cleaned = clean(msisdnStr, customPattern);
     if (!cleaned) {
         return msisdnStr;
     }
 
     const unsafeFormat: PrettyFormats = format as PrettyFormats;
-    const safeFormat: PrettyFormats = prettyFormatsRegExp[unsafeFormat] ? unsafeFormat : PrettyFormats.ZETA;
+    const safeFormat: PrettyFormats = prettyFormatsRegExp[unsafeFormat]
+        ? unsafeFormat
+        : PrettyFormats.ZETA;
 
     return cleaned.replace(patterns.cleanMsisdnParts, prettyFormatsRegExp[safeFormat]);
 };
