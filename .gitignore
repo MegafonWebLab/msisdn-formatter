@@ -8,5 +8,3 @@ yarn-error.log
 
 .idea
 *.iml
-
-.eslintcache
