@@ -1,4 +1,4 @@
-import { clean, pretty, PrettyFormats } from '.';
+import { clean, pretty, PrettyFormats } from './index';
 
 describe('msisdn formatter', () => {
     describe('pretty correct cases', () => {
@@ -12,7 +12,7 @@ describe('msisdn formatter', () => {
             '+7 (916) 123-4567',
             89161234567,
             79161234567,
-            9161234567,
+            9161234567
         ];
 
         type TestCase = [string | number, PrettyFormats | string | undefined, string];
@@ -29,24 +29,28 @@ describe('msisdn formatter', () => {
             ...testMsisdns.map((t): TestCase => [t, 'unknown-format', '+7 (916) 123-45-67']),
         ];
 
-        it.concurrent.each(testTable)(
-            'pretty(%s, %p) should return %s',
+        it.concurrent.each(testTable)('pretty(%s, %p) should return %s',
             (msisdn, format, expected) => {
-                expect(pretty(msisdn, undefined, format)).toEqual(expected);
-            },
+                expect(pretty(msisdn, format)).toEqual(expected);
+            }
         );
     });
 
     describe('pretty incorrect cases', () => {
-        const invalidMsisdns = [true, {}, { number: 79060523777 }];
+        const invalidMsisdns = [
+            true,
+            {},
+            { number: 79060523777 },
+        ];
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type TestCase = [any, any];
-        const testTable: TestCase[] = invalidMsisdns.map((t): TestCase => [t, t]);
+        const testTable: TestCase[] = invalidMsisdns.map((t): TestCase => ([t, t]));
 
-        it.concurrent.each(testTable)('pretty(%s) should return %s', (msisdn, expected) => {
-            expect(pretty(msisdn)).toEqual(expected);
-        });
+        it.concurrent.each(testTable)('pretty(%s) should return %s',
+            (msisdn, expected) => {
+                expect(pretty(msisdn)).toEqual(expected);
+            }
+        );
     });
 
     describe('clean correct cases', () => {
@@ -67,18 +71,22 @@ describe('msisdn formatter', () => {
             ...testMsisdns.map((t): TestCase => [t, true, '9161234567']),
         ];
 
-        it.concurrent.each(testTable)(
-            'clean(%p, %p) should return %s',
+        it.concurrent.each(testTable)('clean(%p, %p) should return %s',
             (msisdn, removeLeadingSeven, expected) => {
-                expect(clean(msisdn, undefined, removeLeadingSeven)).toEqual(expected);
-            },
+                expect(clean(msisdn, removeLeadingSeven)).toEqual(expected);
+            }
         );
     });
 
     describe('clean incorrect cases', () => {
-        const invalidMsisdns = [89060523777, 79060523777, 9060523777, {}, true];
+        const invalidMsisdns = [
+            89060523777,
+            79060523777,
+            9060523777,
+            {},
+            true,
+        ];
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type TestCase = [any, boolean | undefined, null];
         const testTable: TestCase[] = [
             ...invalidMsisdns.map((t): TestCase => [t, undefined, null]),
@@ -86,11 +94,10 @@ describe('msisdn formatter', () => {
             ...invalidMsisdns.map((t): TestCase => [t, true, null]),
         ];
 
-        it.concurrent.each(testTable)(
-            'clean(%s, %p) should return %s',
+        it.concurrent.each(testTable)('clean(%s, %p) should return %s',
             (msisdn, removeLeadingSeven, expected) => {
-                expect(clean(msisdn, undefined, removeLeadingSeven)).toEqual(expected);
-            },
+                expect(clean(msisdn, removeLeadingSeven)).toEqual(expected);
+            }
         );
     });
 
@@ -98,31 +105,33 @@ describe('msisdn formatter', () => {
         const msisdn = '88161234567';
         const expected = '+7 816 123-45-67';
 
-        it('pretty 88161234567 with custom pattern should be return +7 816 123-45-67', () => {
+        it('pretty 88161234567 with custom pattern should be return +7 816 123-45-67', ()=> {
             const customPattern = /^7?[4689]\d{9}$/;
 
-            expect(pretty(msisdn, customPattern, PrettyFormats.ETA)).toEqual(expected);
-        });
-
-        it('not should be pretty', () => {
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(expected);
+        })
+        
+        it('not should be pretty', ()=> {
             const customPattern = /^7?[469]\d{9}$/;
 
-            expect(pretty(msisdn, customPattern, PrettyFormats.ETA)).toEqual(msisdn);
-        });
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(msisdn);
+        })
+           
     });
 
     describe('clean customPattern cases', () => {
         const msisdn = '8 816 123 45 67';
         const expected = '8161234567';
 
-        it('call with custom pattern', () => {
+        it('call with custom pattern', ()=> {
             const customPattern = /^7?[4689]\d{9}$/;
 
-            expect(clean(msisdn, customPattern, true)).toEqual(expected);
-        });
-
-        it('call without custom pattern', () => {
-            expect(clean(msisdn)).not.toEqual(expected);
-        });
+            expect(clean(msisdn, true, customPattern)).toEqual(expected);
+        })
+        
+        it('call without custom pattern', ()=> {
+            expect(clean(msisdn, false)).not.toEqual(expected);
+        })
+           
     });
 });
