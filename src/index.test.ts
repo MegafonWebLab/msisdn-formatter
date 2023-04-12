@@ -32,7 +32,7 @@ describe('msisdn formatter', () => {
         it.concurrent.each(testTable)(
             'pretty(%s, %p) should return %s',
             (msisdn, format, expected) => {
-                expect(pretty(msisdn, undefined, format)).toEqual(expected);
+                expect(pretty(msisdn, format)).toEqual(expected);
             },
         );
     });
@@ -70,7 +70,7 @@ describe('msisdn formatter', () => {
         it.concurrent.each(testTable)(
             'clean(%p, %p) should return %s',
             (msisdn, removeLeadingSeven, expected) => {
-                expect(clean(msisdn, undefined, removeLeadingSeven)).toEqual(expected);
+                expect(clean(msisdn, removeLeadingSeven)).toEqual(expected);
             },
         );
     });
@@ -89,7 +89,7 @@ describe('msisdn formatter', () => {
         it.concurrent.each(testTable)(
             'clean(%s, %p) should return %s',
             (msisdn, removeLeadingSeven, expected) => {
-                expect(clean(msisdn, undefined, removeLeadingSeven)).toEqual(expected);
+                expect(clean(msisdn, removeLeadingSeven)).toEqual(expected);
             },
         );
     });
@@ -101,13 +101,13 @@ describe('msisdn formatter', () => {
         it('pretty 88161234567 with custom pattern should be return +7 816 123-45-67', () => {
             const customPattern = /^7?[4689]\d{9}$/;
 
-            expect(pretty(msisdn, customPattern, PrettyFormats.ETA)).toEqual(expected);
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(expected);
         });
 
         it('not should be pretty', () => {
             const customPattern = /^7?[469]\d{9}$/;
 
-            expect(pretty(msisdn, customPattern, PrettyFormats.ETA)).toEqual(msisdn);
+            expect(pretty(msisdn, PrettyFormats.ETA, customPattern)).toEqual(msisdn);
         });
     });
 
@@ -118,7 +118,7 @@ describe('msisdn formatter', () => {
         it('call with custom pattern', () => {
             const customPattern = /^7?[4689]\d{9}$/;
 
-            expect(clean(msisdn, customPattern, true)).toEqual(expected);
+            expect(clean(msisdn, true, customPattern)).toEqual(expected);
         });
 
         it('call without custom pattern', () => {

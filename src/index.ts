@@ -40,14 +40,15 @@ const prettyFormatsRegExp = {
  * Cleans msisdn.
  *
  * @param {string} msisdn msisdn to clean
- * @param {RegExp} customPattern custom pattern for validation msisdn
  * @param {boolean} [removeLeadingSeven=false] Remove leading 7
+ * @param {RegExp} customPattern custom pattern for validation msisdn
  * @returns {?string} cleaned msisdn
  */
 export const clean = (
     msisdn: string,
-    customPattern?: RegExp,
+    // eslint-disable-next-line default-param-last
     removeLeadingSeven = false,
+    customPattern?: RegExp,
 ): string | null => {
     if (typeof msisdn !== 'string') {
         return null;
@@ -72,21 +73,22 @@ export const clean = (
  * Makes msisdn pretty.
  *
  * @param {number|string} msisdn msisdn in string or number.
- * @param {RegExp} customPattern custom pattern for validation msisdn
  * @param {PrettyFormats} [format=PrettyFormats.ZETA] format
+ * @param {RegExp} customPattern custom pattern for validation msisdn
  * @returns {string} msisdn string in pretty format
  */
 export const pretty = (
     msisdn: string | number,
-    customPattern?: RegExp,
+    // eslint-disable-next-line default-param-last
     format: PrettyFormats | string = PrettyFormats.ZETA,
+    customPattern?: RegExp,
 ): string => {
     let msisdnStr = msisdn;
     if (typeof msisdnStr === 'number') {
         msisdnStr = String(msisdn);
     }
 
-    const cleaned = clean(msisdnStr, customPattern);
+    const cleaned = clean(msisdnStr, false, customPattern);
     if (!cleaned) {
         return msisdnStr;
     }
