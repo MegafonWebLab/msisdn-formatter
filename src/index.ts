@@ -14,7 +14,7 @@ const patterns = {
  * EPSILON -> +7 (916) 123-4567
  * ZETA    -> +7 (916) 123-45-67
  * ETA     -> +7 916 123-45-67
-*/
+ */
 
 export enum PrettyFormats {
     ALPHA = 'alpha',
@@ -44,7 +44,12 @@ const prettyFormatsRegExp = {
  * @param {RegExp} customPattern custom pattern for validation msisdn
  * @returns {?string} cleaned msisdn
  */
-export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?: RegExp): string | null => {
+export const clean = (
+    msisdn: string,
+    // eslint-disable-next-line default-param-last
+    removeLeadingSeven = false,
+    customPattern?: RegExp,
+): string | null => {
     if (typeof msisdn !== 'string') {
         return null;
     }
@@ -52,7 +57,9 @@ export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?
     const cleaned = msisdn.replace(patterns.notDigitsNorPlus, '');
     const resultMsisdn = cleaned.replace(
         patterns.cleanMsisdnParts,
-        removeLeadingSeven ? prettyFormatsRegExp[PrettyFormats.ALPHA] : prettyFormatsRegExp[PrettyFormats.BETA],
+        removeLeadingSeven
+            ? prettyFormatsRegExp[PrettyFormats.ALPHA]
+            : prettyFormatsRegExp[PrettyFormats.BETA],
     );
 
     if (customPattern) {
@@ -70,7 +77,12 @@ export const clean = (msisdn: string, removeLeadingSeven = false, customPattern?
  * @param {RegExp} customPattern custom pattern for validation msisdn
  * @returns {string} msisdn string in pretty format
  */
-export const pretty = (msisdn: string | number, format: PrettyFormats | string = PrettyFormats.ZETA, customPattern?: RegExp): string => {
+export const pretty = (
+    msisdn: string | number,
+    // eslint-disable-next-line default-param-last
+    format: PrettyFormats | string = PrettyFormats.ZETA,
+    customPattern?: RegExp,
+): string => {
     let msisdnStr = msisdn;
     if (typeof msisdnStr === 'number') {
         msisdnStr = String(msisdn);
@@ -82,7 +94,9 @@ export const pretty = (msisdn: string | number, format: PrettyFormats | string =
     }
 
     const unsafeFormat: PrettyFormats = format as PrettyFormats;
-    const safeFormat: PrettyFormats = prettyFormatsRegExp[unsafeFormat] ? unsafeFormat : PrettyFormats.ZETA;
+    const safeFormat: PrettyFormats = prettyFormatsRegExp[unsafeFormat]
+        ? unsafeFormat
+        : PrettyFormats.ZETA;
 
     return cleaned.replace(patterns.cleanMsisdnParts, prettyFormatsRegExp[safeFormat]);
 };
